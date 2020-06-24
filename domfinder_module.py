@@ -51,39 +51,33 @@ def finder(folder_name):
 			for protein in SeqIO.parse(input_handle, "fasta"):
 				seq_re = str(protein.seq)
 
-				try:#Si la base de datos no es del tipo Prosite salta error
-					#Iteracion si existen mas bases de datos 
-					for db in os.listdir("./Data/Domain_DB"): 
-						handle = open("./Data/Domain_DB/" + db, "r")
-						domains = Prosite.parse(handle)
+				#Iteracion si existen mas bases de datos 
+				for db in os.listdir("./Data/Domain_DB"): 
+					handle = open("./Data/Domain_DB/" + db, "r")
+					domains = Prosite.parse(handle)
 
-						#Iteracion sobre cada dominio
-						for domain in domains:
-							pattern_pro = domain.pattern
-							pattern_re = (pattern_pro.replace(".","").replace("x",".")
-										 .replace("{","[^").replace("}","]").replace("(","{")
-										 .replace(")","}").replace("<","^").replace(">","$")
-										 .replace("-",""))
-							
-							#Busqueda patron en secuencia
-							if pattern_re != "" and re.search(pattern_re, seq_re):
-								
-								with open("./Results/" + folder_name + "/Domains/" 
-					  					  + file.replace("_allignment", "") 
-					  					  + "_domains", 'a') as f:
+					#Iteracion sobre cada dominio
+					for domain in domains:
+						pattern_pro = domain.pattern
+						pattern_re = (pattern_pro.replace(".","").replace("x",".")
+									 .replace("{","[^").replace("}","]").replace("(","{")
+									 .replace(")","}").replace("<","^").replace(">","$")
+									 .replace("-",""))
 
-									f.write("\n" + domain.name + "\t" + domain.accession 
-											+ "\t" + domain.description + "\t" 
-											+ domain.pattern + "\t" + protein.id + "\t")
+						#Busqueda patron en secuencia
+						if pattern_re != "" and re.search(pattern_re, seq_re):
 
-									for m in re.finditer(pattern_re, seq_re):
-										f.write(str(m.span()))
-				except:
-					print("El archivo introducido como base de dominios no"
-						  " es del tipo Prosite o no se ha introducido archivo. "
-						  "Compruebe la carpeta ./Data/Domain_DB")
-					print("Si necesita ayuda consulte el comando -h o -help")
-					exit()
+							with open("./Results/" + folder_name + "/Domains/" 
+									  + file.replace("_allignment", "") 
+									  + "_domains", 'a') as f:
+
+								f.write("\n" + domain.name + "\t" + domain.accession 
+										+ "\t" + domain.description + "\t" 
+										+ domain.pattern + "\t" + protein.id + "\t")
+
+								for m in re.finditer(pattern_re, seq_re):
+									f.write(str(m.span()))
+				
 
 		os.remove("./Results/" + folder_name + "/Domains/tmp/" + file)
 		input_handle.close()

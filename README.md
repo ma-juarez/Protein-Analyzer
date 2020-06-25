@@ -51,6 +51,7 @@ Los resultados obtenidos mediante el análisis de Blast vienen dados en forma de
 4. Coverage
 5. identity
 6. Evalue  
+  
 Por defecto los valores de Coverage Cutoof y Identity Cutoff están definidos como 50 y 25 respectivamente, aunque estos se pueden cambiar por el usuario. El valor de evalue está definido como 10<sup>-5</sup>.  
 
 También se obtendrán las distintas representaciones de los Blast para cada Query

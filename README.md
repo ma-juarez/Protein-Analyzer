@@ -12,6 +12,8 @@ Para usar este paquete como un programa individual debe usarse:
 `python3 main.py output-folder-name coverage-cutoff(optional) identity-cutoff(optional)`
   
 Se le preguntará al usuario si desea realizar la representación grafica de los resultados o no. Ya que esto puede incrementar considerablemente el tiempo de ejecución. Llegando a tardar entre 5-10 minutos.
+  
+Es necesario tener instalados los módulos externos Matplotlib y BioPython y a nivel local contar con BlastP y Muscle.
 
 ## File Manegement
 Las carpetas en las que se organizarán tanto los archivos del input como los del output viene incluidas con el paquete.  

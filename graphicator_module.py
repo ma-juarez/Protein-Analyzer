@@ -1,7 +1,6 @@
 import os
 
 import matplotlib.pyplot as plt
-import numpy as np
 
 from Bio import Phylo
 from Bio import Seq,SeqIO

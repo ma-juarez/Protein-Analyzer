@@ -9,7 +9,7 @@ def help_message():
 		  "filogenético. Sumado a esto también se lleva a cabo una búsqueda"
 		  " de dominios en las distintas proteínas a partir de una base de datos"
 		  " de Prosite\n")
-	print("Usage: python3 main.py [Coverage-cutoff](Opcional) "
+	print("Usage: python3 main.py output-folder-name [Coverage-cutoff](Opcional) "
 		  "[Identity-Cutoff](Opcional)\n")
 	print("-Archivos Query: Estos irán en la carpeta /Data/Query en formato "
 		  "fasta o multifasta")

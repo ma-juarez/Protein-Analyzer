@@ -26,6 +26,9 @@ Los archivos input deben introducirse en las diferentes subcarpetas de la carpet
 | Domain_DB | prosite.dat   |  
 
 Es muy importante que el archivo prosite.dat sea en formato Prosite y tenga ese nombre exactamente. 
+
+  
+Se generará una carpeta con el nombre de la carpeta de output, donde se almacenarán los datos usados para el análisis. Para así poder cambiar las secuencias query y subject en futuros análisis si se desea. 
  
 ### Output
 Los resultados se almacenarán en la carpeta **Results/Output_folder_name** y la distribución de los mismos será:  

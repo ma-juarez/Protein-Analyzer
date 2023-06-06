@@ -8,18 +8,18 @@ import help_module as hp
 import muscle_module as ms
 import parser_module as ps
 
-#Control Argumentos
+#Arg control
 agc.arg_control(len(sys.argv))
 
-#Ayuda
+#Help
 if sys.argv[1] == "-h" or sys.argv[1] == "-help":
 	hp.help_message()
 	exit()
 
-graph = input("Desea realizar una representación gráfica de los resultados? "
-			  "(Esto aumentará el tiempo de ejecución, llegando a tardar entre "
-			  "5-10 minutos dependiendo de la computadora). [Y/n]")
-#Creacion directorios y parser
+graph = input("Would to like to graph the results?"
+			  "(This will increase running time, taking around "
+			  "5-10 minutes depending on your computer). [Y/n]")
+#Directory creation and parser
 ps.dir_maker(sys.argv[1])
 ps.query_parser(sys.argv[1])
 ps.subject_parser(sys.argv[1])
@@ -38,13 +38,13 @@ ms.tree_maker(sys.argv[1])
 dm.finder_filemaker(sys.argv[1])
 dm.finder(sys.argv[1])
 
-#Graficacion
+#Graphs
 if graph.upper() == "Y":
 	gp.tree_graph(sys.argv[1])
 	gp.blast_graph(sys.argv[1])
 	
 
-print("\nEl programa ha terminado de ejecutar. Ya puede ver sus resultados")
+print("\nThe program finished. You can now check your results")
 
 
 

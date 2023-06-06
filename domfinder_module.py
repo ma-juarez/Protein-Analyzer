@@ -7,20 +7,20 @@ from Bio.Seq import Seq
 
 def finder_filemaker(folder_name):
 	"""
-	Funcion para generar los archivos con las secuencias completas sobre las que
-	se realizara la busqueda de dominios
+	Function to generate the files conatining complete sequences. This sequences 
+	will be used to perform domain search
 	"""
 	os.mkdir("./Results/" + folder_name + "/Domains/tmp")
-	#Adicion secuencias Query
+	#Query sequence addition
 	for file in os.listdir(r'./Data/' + folder_name + '/Query/'):
 		os.system("cp ./Data/" + folder_name + "/Query/" + file + " ./Results/" 
 				  + folder_name + "/Domains/tmp/" + file + "_tmp")
 
-	#Metodo index para evitar problemas de memoria al parsear la subject db
+	#Index method to avoid memory issues when parsing subject db
 	fullprot_dict = SeqIO.index("./Data/" + folder_name + "/Subject/Subject_db",
 							    "fasta")
 
-	#Adicion secuencias que tienen mismo ID que resultados Blast
+	#Addition of sequences with same ID as Blast results
 	for file in os.listdir("./Results/" + folder_name + "/Muscle/Allignments"):
 		with open("./Results/" + folder_name + "/Muscle/Allignments/" + file, 
 				  'r') as input_handle:
@@ -33,11 +33,11 @@ def finder_filemaker(folder_name):
 
 def finder(folder_name):
 	"""
-	Funcion para compara los dominios de la base de datos con las distintas 
-	proteínas. Se itera para cada alineamiento independientemente
+	Function that compares domains in database with the different prorteins. 
+	This task is repeated for each alignment individualy. 
 	"""
 	
-	#Cabecera archivos resultados
+	#Results files header
 	for file in os.listdir("./Results/" + folder_name + "/Domains/tmp"):
 		with open("./Results/" + folder_name + "/Domains/" 
 				  + file.replace("_tmp", "") + "_domains", 'a') as f:
@@ -47,14 +47,14 @@ def finder(folder_name):
 
 		with open("./Results/" + folder_name + "/Domains/tmp/" + file, 
 				  'r') as input_handle:
-			#Iteracion en cada proteina
+			#Protein iteration
 			for protein in SeqIO.parse(input_handle, "fasta"):
 				seq_re = str(protein.seq)
 
 				handle = open("./Data/Domain_DB/prosite.dat", "r")
 				domains = Prosite.parse(handle)
 
-				#Iteracion sobre cada dominio
+				#Iteration for each domain
 				for domain in domains:
 					pattern_pro = domain.pattern
 					pattern_re = (pattern_pro.replace(".","").replace("x",".")
@@ -62,7 +62,7 @@ def finder(folder_name):
 								 .replace(")","}").replace("<","^").replace(">","$")
 								 .replace("-",""))
 					
-					#Busqueda patron en secuencia
+					#Pattern searching
 					if pattern_re != "" and re.search(pattern_re, seq_re):
 						
 						with open("./Results/" + folder_name + "/Domains/" 

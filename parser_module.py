@@ -5,12 +5,11 @@ from Bio.Seq import Seq
 
 def dir_maker(folder_name):
 	"""
-	Funcion que genera las distintas carpetas donde se almacenaran tanto los
-	datos input como los datos del output. Siempre y cuando no exista ya una
-	una carpeta con el mismo nombre
+	Funtion that creates the different folders where input and output will be stored. 
+	This function will be skipped if a folder with teh same name already exists.
 	"""
 
-	try: #Control carpeta no exista ya
+	try: #Folder conrol
 		os.mkdir("./Data/" + folder_name)
 		os.mkdir("./Results/" + folder_name)
 
@@ -21,7 +20,7 @@ def dir_maker(folder_name):
 			   "[Coverage-cutoff](opcional) [identity_cutoff](opcional)")
 		print("\nSi necesita ayuda use el comando -h o -help")
 		exit()
-	#Generación distintas carpetas
+	#Folder creation
 	os.mkdir("./Data/" + folder_name + "/Query")
 	os.mkdir("./Data/" + folder_name + "/Subject")
 	os.mkdir("./Results/" + folder_name + "/Blast")
@@ -36,16 +35,16 @@ def dir_maker(folder_name):
 
 def query_parser(folder_name, data_dir = r'./Data/Query/'):
 	"""
-	Funcion para parsear el multifasta o los fasta individuales que se
-	introduzcan como query. Separandolos en fastas individuales e 
-	introduciendolos en la carpeta correspondiente
+	Funtion that parses the multifasta or multiple single fasta introduced 
+	as query. Sequences are separated into individual fastas and introduced 
+	in the respective folder
 	"""
-	#Control que el formato sea correcto
+	#Format control
  
 	for file in os.listdir(data_dir):
 		with open(data_dir + file, 'r') as input_handle:
 			for record in SeqIO.parse(input_handle, "fasta"): 
-				#Un archivo por record del multi fasta
+				#One file per sequence of multifasta 
 				with open("./Data/" + folder_name + "/Query/" + 
 					      record.id, 'a') as f:
 
@@ -58,21 +57,21 @@ def query_parser(folder_name, data_dir = r'./Data/Query/'):
 
 def subject_parser(folder_name, data_dir = r'./Data/Subject/'):
 	"""
-	Funcion para parsear los GenBank que se introduzcan como Subject. 
-	Fusionandolos para formar un unico archivo multifasta
+	Function that parses GenBank files introduced as Subject. They are fused 
+	as a single msutifasta file
 	"""
-	#Control que el formato sea correcto
+	#Format control
 	
 	for file in os.listdir(data_dir):
 		with open(data_dir + file, 'r') as input_handle:
 			for record in SeqIO.parse(input_handle, "genbank"):
 				with open("./Data/" + folder_name + "/Subject/" + 
 						  "Subject_db", 'a') as f: 
-				#Todo a un mismo archivo
+				#Dump to unique file
 					for feature in record.features:
 						if feature.type == "CDS":
 
-							try: #Se saltan aquellos CDS que falte algun componente
+							try: #CDS with lacking components are skipped 
 								locus_tag = feature.qualifiers["locus_tag"][0]
 								seq = feature.qualifiers["translation"][0]
 

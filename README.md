@@ -1,67 +1,79 @@
 # Protein-Analyzer
 
-Este es un paquete dedicado al análisis de proteínas, mediante el cual se podrán obtener diversos tipos de información sobre las proteínas estudiadas. Además permite el estudio de múltiples querys al mismo tiempo. Entre los diversos resultados que obtendremos se encuentran:  
+Final project for the Programming for bioinformatics course at the Universidad Politécnica de Madrid
 
-1. Blast de los querys frente a los diversos subjects
-2. Alineamiento en Muscle y construcción de un árbol filogenético
-3. Búsqueda de dominios en las distintas proteínas a partir de la base de datos de Prosite
-2. Representación gráfica de los resultados de Blast y los árboles filogenéticos
+This is a package dedicated to protein analysis, by usimg it you can obtain various types of information about the studied proteins. It also allows for the simultaneous study of multiple queries. Among the various results that we will obtain are: 
+
+1. Blast of the queries against the various subjects.
+2. Alignment in Muscle and construction of a phylogenetic tree.
+3. Domain search in the different proteins based on the Prosite database.
+4. Graphical representation of the Blast results and phylogenetic trees.
 
 ## Usage
-Para usar este paquete como un programa individual debe usarse:  
+To use this package as a standalone program, you should use the following command:  
 `python3 main.py output-folder-name coverage-cutoff(optional) identity-cutoff(optional)`
   
-Se le preguntará al usuario si desea realizar la representación grafica de los resultados o no. Ya que esto puede incrementar considerablemente el tiempo de ejecución. Llegando a tardar entre 5-10 minutos.
+The user will be asked if they want to generate graphical representations of the results or not. This can significantly increase the execution time, taking between 5-10 minutes.
   
-Es necesario tener instalados los módulos externos Matplotlib y BioPython y a nivel local contar con BlastP y Muscle.
+It is necessary to have the external modules Matplotlib and Biopython installed, as well as locally having BlastP and Muscle.
 
 ## File Manegement
-Las carpetas en las que se organizarán tanto los archivos del input como los del output viene incluidas con el paquete.  
+The package includes pre-defined folders for organizing both input and output files. 
 ### Input
-Los archivos input deben introducirse en las diferentes subcarpetas de la carpeta **Data** de la siguiente manera:  
-| Carpeta        |Archivo       |
+The input files should be placed in the different subfolders of the **Data** folder following this structure:  
+| Folder        |File       |
 | ------------- |:-------------:|
-| Query     |Multifasta o multiples fasta |
+| Query     |Multifasta or multiple fasta |
 | Subject      | GenBanks   | 
 | Domain_DB | prosite.dat   |  
 
-Es muy importante que el archivo prosite.dat sea en formato Prosite y tenga ese nombre exactamente. 
+It is crucial that the prosite.dat file is in Prosite format and has that exact name.
 
-  
-Se generará una carpeta con el nombre de la carpeta de output, donde se almacenarán los datos usados para el análisis. Para así poder cambiar las secuencias query y subject en futuros análisis si se desea. 
+A folder with the name specified as the output folder will be generated, where the data used for analysis will be stored. This allows for changing the query and subject sequences in future analyses if desired.
  
 ### Output
-Los resultados se almacenarán en la carpeta **Results/Output_folder_name** y la distribución de los mismos será:  
-| Carpeta        |Archivo       |
+Results will be stored in the **Results/Output_folder_name** folder, and the distribution of the files will be as follows:  
+| Folder        |File       |
 | ------------- |:-------------:|
-| Blast     |Resultados Blast |
-| Blast/Figures      | Representación Blast   | 
-| Pre_Muscle | Fastas para alineamiento  |
-| Muscle/Allignments | Alineamientos de Muscle   |
-| Muscle/Trees | Árboles Filogenéticos   |
-| Muscle/Trees_Figures | Árboles Filogenéticos Dibujados  |
-| Domains | Análisis de Dominios |
+| Blast     | Blast Results |
+| Blast/Figures      | Blast Representations  | 
+| Pre_Muscle | FASTA files for alignment |
+| Muscle/Allignments | Muscle Alignments   |
+| Muscle/Trees | Phylogenetic Trees   |
+| Muscle/Trees_Figures | Drawn Phylogenetic Trees  |
+| Domains | Domain Analysis |
 
-## Resultados
+## Results
 ### Blast
-Los resultados obtenidos mediante el análisis de Blast vienen dados en forma de archivo tabulado (tsv) y se muestra:  
+The results obtained from the Blast analysis are presented in a tabulated (TSV) file format, showing the following information:  
 1. Query ID
 2. Subject ID
 3. Subject Seq
 4. Coverage
 5. identity
-6. Evalue  
+6. E-value  
   
-Por defecto los valores de Coverage Cutoof y Identity Cutoff están definidos como 50 y 25 respectivamente, aunque estos se pueden cambiar por el usuario. El valor de evalue está definido como 10<sup>-5</sup>.  
+By default, the values for the Coverage Cutoff and Identity Cutoff are set to 50 and 25, respectively, although these can be changed by the user. The E-value is set to 10<sup>-5</sup>.
 
-También se obtendrán las distintas representaciones de los Blast para cada Query
+
+The results obtained from the Blast analysis are presented in a tabulated (TSV) file format, showing the following information:
+
+Query ID
+Subject ID
+Subject Seq
+Coverage
+Identity
+E-value
+By default, the values for the Coverage Cutoff and Identity Cutoff are set to 50 and 25, respectively, although these can be changed by the user. The E-value is set to 10<sup>-5</sup>.
+
+Additionally, different representations of the Blast results will be obtained for each query. Here is an example image of the Blast representation:
 ![mrdA_figure](https://user-images.githubusercontent.com/67161655/85619606-d5e7a600-b662-11ea-8c29-fdec2fc8043e.png)
 
 ### Muscle
-A partir de Muscle se obtendrán dos tipos de archivos. Un archivo con el anileamiento de las secuencias y otro con un árbol filogenético. El árbol podremos llevarlo posteriormente a herramientas como iTOL para poder visualizarlo gráficamente.  
-También se presenta una imagen con el árbol representado mediante Phylo de BioPython
+From Muscle, two types of files will be obtained: one file with the sequence alignment and another file with a phylogenetic tree. The phylogenetic tree can be further visualized using tools like iTOL for graphical representation.
 
+Moreover a simple example image of the tree is represented using BioPython's Phylo:
 ![mrdA_tree](https://user-images.githubusercontent.com/67161655/85619625-dda74a80-b662-11ea-86f6-3e86d6def446.png)
 
 ### Domain Finder
-Se obtendrá un archivo en el que se mostrarán los distintos dominios presentes en cada proteína, una breve descripción, el patrón de los mismos y la posición en que aparecen.
+An output file will be generated displaying the different domains present in each protein, along with a brief description, the pattern of the domains, and their positions.

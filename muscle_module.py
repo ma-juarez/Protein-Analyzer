@@ -2,11 +2,10 @@ import os
 
 def tree_maker(folder_name):
 	"""
-	Funcion para realizar el alineamiento de Muscle y el arbol filogenético de 
-	forma local
+	Function to perform Muscle alignment and local phylogenetic tree
 	"""
 
-	#Creacion directorios
+	#Directory creation
 	os.mkdir("./Results/" + folder_name + "/Muscle/Allignments")
 	os.mkdir("./Results/" + folder_name + "/Muscle/Trees")
 
@@ -18,9 +17,9 @@ def tree_maker(folder_name):
 				  + "_allignment -quiet 2> /dev/null")
 
 		try: 
-			os.system(allign) #Alineamiento Muscle Local
+			os.system(allign) #Local Muscle alignment
 		except:
-			print("No hay resultados con estos parametros para la secuencia" 
+			print("No results for this sequence with the defined parameters" 
 				  + file.replace('_premuscle', ''))
 
 	for file in os.listdir("./Results/" + folder_name + "/Muscle/Allignments"):
@@ -30,9 +29,9 @@ def tree_maker(folder_name):
 			   + "/Muscle/Trees/" + file.replace('_allignment', '') 
 			   + "_tree -cluster neighborjoining -quiet 2> /dev/null")
 		try:
-			os.system(tree) #Generación arbol filogenético
+			os.system(tree) #Phylogenetic tree generation
 		except: 
-			print("No hay resultados con estos parametros para la secuencia" 
+			print("No results for this sequence with the defined parameters" 
 				  + file.replace('_premuscle', ''))
 
 		

@@ -1,2 +1,2 @@
-#Modulo Creado por Miguel Angel Juarez
-#Junio 2020
+#Module created by Miguel Angel Juarez
+#June 2020
